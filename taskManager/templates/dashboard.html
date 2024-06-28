@@ -1,0 +1,77 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Respuesta</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <!-- Bootstrap CSS v4.3.1 -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
+        <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    </head>
+
+    <body>
+        <header>
+            <!-- place navbar here -->
+        </header>
+        <main>
+            <div class="row d-flex mt-5">
+                <div class="card py-3 px-2">
+                    <div class="division">
+                        <div class="row">
+                            <div class="col-3"><div class="line l"></div></div>
+                            <div class="col-6"><span>Pending tasks</span></div>
+                            <div class="col-3"><div class="line r"></div></div>
+                        </div>
+                    </div>
+                    <div class="table-responsive" >
+                        <table class="table text-white">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">Answer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for task in tasks %}
+                                <tr>
+                                    <td>{{task.subject}}</td>
+                                    {% if task.answer == None %}
+                                    <td>
+                                        <form action="" method="post"class="row">
+                                            {% csrf_token %}
+                                            <div class="col-10">
+                                                <input type="text" class="form-control" name="answer"/>
+                                                <input type="hidden" name="task_id" value="{{task.id}}">
+                                                
+                                            </div>
+                                            <div class="col-2">
+                                                <button type="submit" class="btn btn-primary"> Send</button>
+                                            </div>
+                                        </form>
+                                        
+                                    </td>
+                                    {% else %}
+                                    <td>{{task.answer}}</td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </main>
+        <footer>
+            <!-- place footer here -->
+        </footer>
+        <!-- Bootstrap JavaScript Libraries -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </body>
+</html>
