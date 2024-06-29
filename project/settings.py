@@ -30,7 +30,8 @@ SECRET_KEY = 'django-insecure-gzw!*jx%%z+uc)vk%9^#hbm$)$2^0htq%nxaa6&%!581_x+dw+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://task.lapeira.com']
+ALLOWED_HOSTS = ['www.task.lapeira.com', 'task.lapeira.com']
 
 
 # Application definition
@@ -143,3 +144,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
