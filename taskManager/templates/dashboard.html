@@ -29,16 +29,18 @@
                         </div>
                     </div>
                     <div class="table-responsive" >
-                        <table class="table text-white">
+                        <table id="task-dashboard" class="table text-white">
                             <thead>
                                 <tr>
+                                    <th scope="">User</th>
                                     <th scope="col">Subject</th>
                                     <th scope="col">Answer</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="task-table-body">
                                 {% for task in tasks %}
                                 <tr>
+                                    <td>{{task.user.first_name}}</td>
                                     <td>{{task.subject}}</td>
                                     {% if task.answer == None %}
                                     <td>
@@ -46,7 +48,7 @@
                                             {% csrf_token %}
                                             <div class="col-10">
                                                 <input type="text" class="form-control" name="answer"/>
-                                                <input type="hidden" name="task_id" value="{{task.id}}">
+                                                <input type="hidden" id="task_id_{{task.id}}" name="task_id" value="{{task.id}}">
                                                 
                                             </div>
                                             <div class="col-2">
@@ -56,7 +58,10 @@
                                         
                                     </td>
                                     {% else %}
-                                    <td>{{task.answer}}</td>
+                                    <td>
+                                        <input type="text" class="form-control" name="answer" value="{{task.answer}}" readonly/>
+                                        <input type="hidden" id="task_id_{{task.id}}" name="task_id" value="{{task.id}}">
+                                    </td>
                                     {% endif %}
                                 </tr>
                                 {% endfor %}
@@ -70,8 +75,12 @@
         <footer>
             <!-- place footer here -->
         </footer>
+
         <!-- Bootstrap JavaScript Libraries -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+        <script src="{% static 'js/dashboard.js' %}"></script>
     </body>
 </html>

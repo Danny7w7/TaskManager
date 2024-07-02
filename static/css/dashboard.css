@@ -48,8 +48,15 @@ p{
 	background: #212042;
 	margin-bottom: 20px;
 	letter-spacing: 1px;
-	
 }
+.form-control[type="text"][readonly] {
+	border: 1px solid #57557A;
+	border-radius: 3px;
+	background: #212042;
+	margin-bottom: 20px;
+	letter-spacing: 1px;
+}
+
 .form-control:focus{
 	border: 1px solid #57557A;
 	border-radius: 3px;
@@ -81,6 +88,9 @@ small{
 }
 .far.fa-user{
 	font-size: 13px;
+}
+.table{
+	overflow: hidden;
 }
 .table td, .table th {
     white-space: normal; /* Permite que el texto se envuelva automáticamente */

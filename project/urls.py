@@ -19,8 +19,9 @@ from django.urls import path
 from taskManager import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('login/', views.login_, name='login'),
     path('', views.index, name='index'),
-    path('dashboard/', views.dashboard, name='dashboard')
+    path('login/', views.login_, name='login'),
+    path('admin/', admin.site.urls),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('get_tasks/', views.get_tasks, name='get_tasks')
 ]

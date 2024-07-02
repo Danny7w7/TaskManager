@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
+
+from django.http import JsonResponse
 
 from .models import *
 
@@ -20,6 +23,7 @@ def login_(request):
             msg = 'Nada papi te equivocaste, dale pa ve'
             return render(request, 'login.html', {'msg':msg})
     else:
+        print(make_password('elias'))
         return render(request, 'login.html')
 
 @login_required(login_url='/login')
@@ -47,3 +51,10 @@ def dashboard(request):
         'tasks':Task.objects.all()
     }
     return render(request, 'dashboard.html', contex)
+
+def get_tasks(request):
+    tasks = Task.objects.select_related('user').values(
+        'id', 'subject', 'answer', 'date', 'user__id', 'user__first_name'
+    )
+    tasks_list = list(tasks)
+    return JsonResponse({'tasks': tasks_list})
