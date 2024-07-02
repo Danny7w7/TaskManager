@@ -18,13 +18,18 @@ def login_(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
+            if user.is_staff:
+                return redirect(dashboard)
             return redirect(index)
         else:
             msg = 'Nada papi te equivocaste, dale pa ve'
             return render(request, 'login.html', {'msg':msg})
     else:
-        print(make_password('elias'))
         return render(request, 'login.html')
+    
+def logout_(request):
+    logout(request)
+    return redirect(index)
 
 @login_required(login_url='/login')
 def index(request):
