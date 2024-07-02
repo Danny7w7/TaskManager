@@ -13,6 +13,7 @@ function fetchTasks() {
                     taskDashboard.empty(); // Clear the dashboard
                     console.log('Borro la tabla papa y actualizo esta caga')
                     updateTable(data)
+                    showNotification(task.user__first_name)
                 }
             });
 
@@ -63,4 +64,33 @@ function updateTable(data){
         // Agregar fila a la tabla
         taskDashboard.append(row);
     });
+}
+
+function showNotification(user) {
+    if (Notification.permission !== "granted") {
+        Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+                createNotification();
+            } else {
+                console.log("Permiso para notificaciones denegado.");
+            }
+        });
+    } else {
+        createNotification(user);
+    }
+}
+
+function createNotification(user) {
+    const options = {
+        body: "Mi rey "+user+" creó una nueva tarea, cuando puedas la haces mi amor❤",
+        icon: "url-del-icono.png", // Puedes agregar un icono si lo deseas
+        // Otros parámetros opcionales como 'image', 'badge', etc.
+    };
+
+    const notification = new Notification("New Task :D", options);
+
+    notification.onclick = function() {
+        window.focus();
+        notification.close();
+    };
 }

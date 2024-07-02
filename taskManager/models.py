@@ -11,5 +11,6 @@ class Users(AbstractUser):
 class Task(models.Model):
     subject = models.TextField()
     answer = models.TextField(null=True)
+    date_answer = models.DateTimeField(null=True)
     date = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(Users, on_delete=models.CASCADE)

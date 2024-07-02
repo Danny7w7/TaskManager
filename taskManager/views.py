@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
+from django.utils import timezone
 
 from django.http import JsonResponse
 
@@ -43,6 +44,7 @@ def index(request):
     contex = {
         'tasks':tasks
     }
+    print(make_password('Jayelis.0916'))
     return render(request, 'newTask.html', contex)
 
 def dashboard(request):
@@ -50,6 +52,7 @@ def dashboard(request):
         answer = request.POST['answer']
         task_id = request.POST['task_id']
         task = Task.objects.get(id=task_id)
+        task.date_answer = timezone.now()
         task.answer = answer
         task.save()
     contex = {
