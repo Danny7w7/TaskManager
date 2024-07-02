@@ -8,10 +8,9 @@ function fetchTasks() {
                 let taskInput = document.getElementById(`task_id_${task.id}`);
                 
                 if (taskInput) {
-                    console.log("Esto si existe, nose que logica poner aqui, jaja xd")
+                    console.log(" ")
                 } else {
                     taskDashboard.empty(); // Clear the dashboard
-                    console.log('Borro la tabla papa y actualizo esta caga')
                     updateTable(data)
                     showNotification(task.user__first_name)
                 }
