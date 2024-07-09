@@ -6,12 +6,13 @@ function fetchTasks() {
             const taskDashboard = $('#task-table-body');
             data.tasks.forEach(function(task) {
                 let taskInput = document.getElementById(`task_id_${task.id}`);
+                const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
                 
                 if (taskInput) {
                     console.log(" ")
                 } else {
                     taskDashboard.empty(); // Clear the dashboard
-                    updateTable(data)
+                    updateTable(data, csrfToken)
                     showNotification(task.user__first_name)
                 }
             });
@@ -30,7 +31,7 @@ setInterval(fetchTasks, 5000);
 // Initial fetch
 fetchTasks();
 
-function updateTable(data){
+function updateTable(data, csrfToken){
     const taskDashboard = $('#task-table-body');
     data.tasks.forEach(function(task) {
         // Crear fila de la tabla
@@ -50,8 +51,9 @@ function updateTable(data){
             value: task.id,
             readonly: task.answer === null ? 'readonly' : undefined
         });
+        const inputCsrfToken = $('<input>').attr({type: 'hidden', name: 'csrfmiddlewaretoken', value: csrfToken});
 
-        divCol10.append(inputAnswer, inputTaskId);
+        divCol10.append(inputAnswer, inputTaskId, inputCsrfToken);
         const divCol2 = $('<div>').addClass('col-2');
         const submitBtn = $('<button>').attr({type: 'submit',class: 'btn btn-primary',}).text('Submit');
         divCol2.append(submitBtn);

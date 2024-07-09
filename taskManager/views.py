@@ -44,7 +44,6 @@ def index(request):
     contex = {
         'tasks':tasks
     }
-    print(make_password('Jayelis.0916'))
     return render(request, 'newTask.html', contex)
 
 def dashboard(request):
