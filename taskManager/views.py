@@ -46,7 +46,10 @@ def index(request):
     }
     return render(request, 'newTask.html', contex)
 
+@login_required(login_url='/login')
 def dashboard(request):
+    if not request.user.is_staff:
+        return redirect(index)
     if request.method == 'POST':
         answer = request.POST['answer']
         task_id = request.POST['task_id']
