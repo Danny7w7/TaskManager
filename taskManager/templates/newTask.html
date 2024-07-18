@@ -33,6 +33,12 @@
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <input name="subject" type="text" class="form-control" placeholder="Asunto">
+                                    <select class="form-control" name="addressee">
+                                        <option selected>Destinatario</option>
+                                        <option value="elias">Viejo Elias</option>
+                                        <option value="jhonfer">Viejo Jhonfer</option>
+                                    </select>
+                                    
                                 </div>
                                 <div class="form-group mt-3">
                                     <button type="submit" class="btn btn-block btn-primary btn-lg"><small><i class="far fa-user pr-2"></i>Entrar</small></button>
@@ -62,11 +68,13 @@
                                     <tbody>
                                         {% for task in tasks %}
                                         <tr>
-                                            <td>{{task.subject}}</td>
-                                            {% if task.answer == None %}
-                                            <td>El viejo Elias no te ha respondido, cojela Quacker</td>
-                                            {% else %}
-                                            <td>{{task.answer}}</td>
+                                            {% if task.addressee == 'elias' %}
+                                                <td>{{task.subject}}</td>
+                                                {% if task.answer == None %}
+                                                <td>El viejo Elias no te ha respondido, cojela Quacker</td>
+                                                {% else %}
+                                                <td>{{task.answer}}</td>
+                                                {% endif %}
                                             {% endif %}
                                         </tr>
                                         {% endfor %}

@@ -13,4 +13,5 @@ class Task(models.Model):
     answer = models.TextField(null=True)
     date_answer = models.DateTimeField(null=True)
     date = models.DateTimeField(auto_now=True)
+    addressee = models.CharField(max_length=20, null=False)
     user = models.ForeignKey(Users, on_delete=models.CASCADE)

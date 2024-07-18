@@ -34,16 +34,18 @@ def logout_(request):
 
 @login_required(login_url='/login')
 def index(request):
+    print(make_password('2aad7c9f052'))
     if request.method == 'POST':
-        subject = request.POST['subject']
         task = Task()
-        task.subject = subject
+        task.subject = request.POST['subject']
         task.user = Users.objects.filter(id=request.user.id).first()
+        task.addressee = request.POST['addressee']
         task.save()
     tasks = Task.objects.filter(user_id=request.user.id)
     contex = {
         'tasks':tasks
     }
+    print(request.user)
     return render(request, 'newTask.html', contex)
 
 @login_required(login_url='/login')
@@ -57,13 +59,17 @@ def dashboard(request):
         task.date_answer = timezone.now()
         task.answer = answer
         task.save()
+    userConect = str(request.user.username)
+    print(userConect)
+    tasks= Task.objects.filter(addressee=userConect)
+    print(f'Tasks for user {userConect}: {tasks}')
     contex = {
-        'tasks':Task.objects.all()
+        'tasks':Task.objects.filter(addressee=userConect)
     }
     return render(request, 'dashboard.html', contex)
 
 def get_tasks(request):
-    tasks = Task.objects.select_related('user').values(
+    tasks = Task.objects.filter(addressee=request.user).select_related('user').values(
         'id', 'subject', 'answer', 'date', 'user__id', 'user__first_name'
     )
     tasks_list = list(tasks)
