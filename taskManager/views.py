@@ -34,7 +34,6 @@ def logout_(request):
 
 @login_required(login_url='/login')
 def index(request):
-    print(make_password('2aad7c9f052'))
     if request.method == 'POST':
         task = Task()
         task.subject = request.POST['subject']
@@ -45,7 +44,6 @@ def index(request):
     contex = {
         'tasks':tasks
     }
-    print(request.user)
     return render(request, 'newTask.html', contex)
 
 @login_required(login_url='/login')
@@ -60,9 +58,6 @@ def dashboard(request):
         task.answer = answer
         task.save()
     userConect = str(request.user.username)
-    print(userConect)
-    tasks= Task.objects.filter(addressee=userConect)
-    print(f'Tasks for user {userConect}: {tasks}')
     contex = {
         'tasks':Task.objects.filter(addressee=userConect)
     }
